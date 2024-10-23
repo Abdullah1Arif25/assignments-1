@@ -1,36 +1,18 @@
-import requests
 import json
-import re
-
-
-service = 'https://dit009-spotify-assignment.vercel.app/api/v1/'
 
 
 
-artist_link = input(""" Enter the link of the artists: """)
-ids = re.findall(r'\d\w{21}', artist_link)
-
-for id in ids:
-    artist_id = id
-
-    link = f"{service}/artists/{artist_id}/albums"
+with open('assignment-1/database/spotify.json', mode= 'r') as artist_data:
+    data = json.load(artist_data)
+    items = data['items']
     
-    response = requests.get(link)
-    
-    data = response.json()
-    with open('C:/Users/aa695/go/src/assignment-1/abd.json', 'a') as robiyat:
-        json.dump(data, robiyat)
+    artist_name = items[0]['artists'][0]['name']
+    print(f"{artist_name:.>5}")
 
-
-
-
-
-        
-
-
-
-
-
-
+    for i in range(0, 10):
+        number_of_tracks_in_album = items[i]['total_tracks']
+        artist_name = items[i]['artists'][0]['name']
+        album_name = items[i]['name']
+        print(f"Name of The Album: {album_name:.>4}\n Number of Tracks: {number_of_tracks_in_album:.>4}")
 
 
